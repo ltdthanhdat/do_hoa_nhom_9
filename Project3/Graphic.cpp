@@ -1420,23 +1420,65 @@ void wheelPositioned() {
     glPopMatrix();
 }
 
-void carBodyRaw()
-{
-    /// main body
+void carBodyRaw() {
+    /// Main body (lower part)
     glPushMatrix();
     glTranslatef(-3.0, 1.5, -19.5);
-    glScalef(3.5, 2.0, 5.0);
+    glScalef(4.0, 1.5, 5.0); // Điều chỉnh tỉ lệ cho thân xe rộng và thấp hơn
     glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 0.0, 1.0, 1.0);
+    cube(0.8, 0.2, 0.2, 1.0); // Đổi màu thành đỏ đậm
     glPopMatrix();
-    /// upper body
+
+    /// Upper body (cabin)
     glPushMatrix();
-    glTranslatef(-3.0, 3.5, -20.0);
-    glScalef(1.75, 1.0, 2.5);
+    glTranslatef(-3.0, 3.0, -20.0);
+    glScalef(2.0, 1.2, 3.0); // Điều chỉnh tỉ lệ cabin cho cân đối hơn
     glTranslatef(-0.5, 0, -0.5);
-    cube(0.0, 1.0, 1.0, 1.0);
+    cube(0.2, 0.2, 0.8, 1.0); // Đổi màu thành xanh đậm
+    glPopMatrix();
+
+    /// Side windows
+    // Cửa sổ bên trái
+    glPushMatrix();
+    glTranslatef(-4.2, 3.3, -20.5); // Điều chỉnh vị trí để khớp với cabin
+    glScalef(0.1, 0.8, 2.0);        // Điều chỉnh kích thước cửa sổ bên trái
+    cube(0.5, 0.5, 0.5, 0.5);       // Màu xám nhạt cho cửa sổ
+    glPopMatrix();
+
+    // Cửa sổ bên phải
+    glPushMatrix();
+    glTranslatef(-1.8, 3.3, -20.5); // Điều chỉnh vị trí để khớp với cabin
+    glScalef(0.1, 0.8, 2.0);        // Điều chỉnh kích thước cửa sổ bên phải
+    cube(0.5, 0.5, 0.5, 0.5);       // Màu xám nhạt cho cửa sổ
+    glPopMatrix();
+
+    /// Wheels
+    glPushMatrix();
+    glTranslatef(-4.0, 1.0, -18.0); // Bánh trước bên trái
+    glScalef(0.8, 0.8, 0.8);
+    cube(0.1, 0.1, 0.1, 1.0); // Bánh xe màu đen
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-4.0, 1.0, -22.0); // Bánh sau bên trái
+    glScalef(0.8, 0.8, 0.8);
+    cube(0.1, 0.1, 0.1, 1.0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-2.0, 1.0, -18.0); // Bánh trước bên phải
+    glScalef(0.8, 0.8, 0.8);
+    cube(0.1, 0.1, 0.1, 1.0);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-2.0, 1.0, -22.0); // Bánh sau bên phải
+    glScalef(0.8, 0.8, 0.8);
+    cube(0.1, 0.1, 0.1, 1.0);
     glPopMatrix();
 }
+
+
 
 void car() {
     /// car 1
