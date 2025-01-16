@@ -524,170 +524,7 @@ void road()
 }
 
 
-/// Building & Clock
-void building()
-{
-    /// leftFront FrontXCube
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[3]);
-    glPushMatrix();
-    glTranslatef(15.0, 0, -17.0);
-    glScalef(0.1, 20, 10);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// leftFront BackXCube()
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
-    glPushMatrix();
-    glTranslatef(20.0, 0, -17.0);
-    glScalef(0.1, 20, 10);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// leftFront FrontZCube()
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[5]);
-    glPushMatrix();
-    glTranslatef(17.5, 0, -22.0);
-    glScalef(5, 20, 0.1);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[5]);
-    glPushMatrix();
-    glTranslatef(17.5, 0, -12.0);
-    glScalef(5, 20, 0.1);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// leftFront RoofCube()
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[6]);
-    glPushMatrix();
-    glTranslatef(17.5, 20, -17.0);
-    glScalef(5, 0.1, 10);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
 
-}
-
-void buildings()
-{
-    glPushMatrix();
-    building();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslatef(0, 0, 34);
-    building();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslatef(0, 0, -35);
-    glRotated(-180, 0, 1, 0);
-    building();
-    glPopMatrix();
-    glPushMatrix();
-    glRotated(-180, 0, 1, 0);
-    ///building();
-    glPopMatrix();
-}
-
-void ClockRaw()
-{
-    /// clock base
-    /*glPushMatrix();
-    glScalef(4, 2, 3);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.941, 0.502, 0.502, 1.0);
-    glPopMatrix();*/
-    /// clock root
-    glPushMatrix();
-    GLfloat m_amb[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_diff[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_spec[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_sh[] = { 30 };
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-
-    glRotated(90, -1, 0, 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* clock_obj = gluNewQuadric();
-    gluCylinder(clock_obj, 1.0, 1.0, 32.0, 300.0, 300.0);
-    glEnd();
-    glPopMatrix();
-    /// clock holder
-    glPushMatrix();
-    glTranslatef(0, 30, 0);
-    glScalef(4, 0.2, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.502, 0.000, 0.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0, 34, 0);
-    glScalef(4, 0.2, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.502, 0.000, 0.000, 1.0);
-    glPopMatrix();
-
-
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(2, 30, 0);
-    glScalef(0.2, 4, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(-2, 30, 0);
-    glScalef(0.2, 4, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-
-
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(0, 30, 2);
-    glScalef(4, 4, 0.2);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(0, 30, -2);
-    glScalef(4, 4, 0.2);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-}
-
-void Clock()
-{
-    glPushMatrix();
-    glTranslatef(0, 0, -3);
-    ClockRaw();
-    glPopMatrix();
-}
 
 
 /// Sky
@@ -860,144 +697,103 @@ void plane()
     glPopMatrix();
 }
 
-
-/// Den Giao Thong
-void lamPost()
+void Billboard()
 {
-    GLfloat m_amb[] = { 0.275, 0.510, 0.706, 1.0 };
-    GLfloat m_diff[] = { 0.275, 0.510, 0.706, 1.0 };
-    GLfloat m_spec[] = { 0.275, 0.510, 0.706, 1.0 };
-    GLfloat m_sh[] = { 30 };
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[8]);
+    glPushMatrix();
+    glTranslatef(0, 10, -2);
+    glScalef(12, 4, 0.2);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
+
+void Stool()
+{
+    glPushMatrix();
+    float scale = 0.5;
+    glTranslatef(-0, 0.75, -1.5);      // Dịch chuyển
+    glScalef(scale, scale, scale);
+    // Thiết lập vật liệu cho ghế 
+    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
+    GLfloat m_sh[] = { 25 };
 
     glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
     glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
     glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
 
-    /// lamp post
+    // Bề mặt ghế
     glPushMatrix();
-    glTranslated(9, 0, -22);
-    glRotated(90, -1, 0, 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* obj = gluNewQuadric();
-    gluCylinder(obj, 0.3, 0.3, 15.0, 300.0, 300.0);
-    glEnd();
+    glScalef(2.0, 0.4, 2.0);
+    cube(0.6, 0, 0, 1.0);     // Màu 
     glPopMatrix();
 
-    /// lamp holder
-    glPushMatrix();
-    glTranslatef(7.0, 15.0, -22);
-    glScalef(4.0, 0.2, 0.5);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.275, 0.510, 0.706, 1.0);
-    glPopMatrix();
+    // Chân ghế 
+    for (float x_leg = 0.2; x_leg <= 1.8; x_leg += 1.6)
+    {
+        for (float z_leg = 0.2; z_leg <= 1.8; z_leg += 1.6)
+        {
+            glPushMatrix();
+            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
+            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
+            GLUquadricObj* leg = gluNewQuadric();
+            gluCylinder(leg, 0.2, 0.2, 1.5, 30, 30); // Kích thước và chiều cao chân ghế
+            gluDeleteQuadric(leg);
+            glPopMatrix();
+        }
+    }
 
-    /// lamp
-    glPushMatrix();
-    glTranslatef(5.5, 14.0, -22);
-    glScalef(0.2, 1.0, 0.2);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
+
     glPopMatrix();
 }
 
-void lamPosts()
+void Table()
 {
     glPushMatrix();
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, 10);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, 34);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, 44);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, -34);
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, -44);
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, -10);
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-}
-
-
-/// Trees
-void tree()
-{
-    GLfloat m_amb[] = { 0.000, 0.392, 0.000,1 };
-    GLfloat m_diff[] = { 0.000, 0.392, 0.000,1 };
-    GLfloat m_spec[] = { 0.000, 0.392, 0.000,1 };
-    GLfloat m_sh[] = { 30 };
+    float scale = 0.5;
+    glTranslatef(0, 1, 0);      // Dịch chuyển
+    glScalef(scale, scale, scale);
+    // Thiết lập 
+    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
+    GLfloat m_sh[] = { 25 };
 
     glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
     glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
     glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
 
-    /// root
+    // Bề mặt bàn
     glPushMatrix();
-    glTranslated(11, 0, -17);
-    glRotated(90, -1, 0, 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* roo_obj = gluNewQuadric();
-    gluCylinder(roo_obj, 0.3, 0.3, 9.0, 300.0, 300.0);
-    glEnd();
+    glScalef(6.0, 0.4, 3.0);
+    cube(0.6, 0.4, 0.2, 1.0);     // Màu 
     glPopMatrix();
-    /// branch
-    glPushMatrix();
-    glTranslated(11, 8.0, -17);
-    glRotated(90, -1, 0, 0);
-    glutSolidCone(2.5, 4.0, 300, 300);
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(11, 10.5, -17);
-    glRotated(90, -1, 0, 0);
-    glutSolidCone(2.5, 4.0, 300, 300);
+
+    // Chân bàn
+    for (float x_leg = 0.4; x_leg <= 5.6; x_leg += 5.2)
+    {
+        for (float z_leg = 0.4; z_leg <= 2.6; z_leg += 2.2)
+        {
+            glPushMatrix();
+            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
+            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
+            GLUquadricObj* leg = gluNewQuadric();
+            gluCylinder(leg, 0.3, 0.3, 2.0, 300, 300); // Kích thước và chiều cao chân
+            gluDeleteQuadric(leg);
+            glPopMatrix();
+        }
+    }
+
+
     glPopMatrix();
 }
-
-void trees()
-{   
-    //Ve cay 1
-    glPushMatrix();
-    tree();
-    glPopMatrix();
-    //Cay 2
-    glPushMatrix();
-    glTranslated(0, 0, 34.0);
-    tree();
-    glPopMatrix();
-    //Cay 3
-    glPushMatrix();
-    glTranslated(-22.0, 0, 0);
-    tree();
-    glPopMatrix();
-    //Cay 4
-    glPushMatrix();
-    glTranslated(-22.0, 0, 34.0);
-    tree();
-    glPopMatrix();
-}
-
 
 /// Jatri Chaone
 void jatriChaone()
@@ -1534,9 +1330,9 @@ void objects()
     ground();
     road();
     car();
-
-    buildings();
-    Clock();
+    Billboard();
+    Stool();
+    Table();
     jatriChaonePositioned();
 
     leftLight();
@@ -1555,8 +1351,7 @@ void objects()
     sun();
     plane();
 
-    lamPosts();
-    trees();
+    
 
     trafficSystemPositioned();
 
