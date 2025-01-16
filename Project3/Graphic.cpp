@@ -1524,6 +1524,103 @@ void car() {
     glPopMatrix();
 }
 
+void Billboard()
+{
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[8]);
+    glPushMatrix();
+    glTranslatef(0, 10, -2);
+    glScalef(12, 4, 0.2);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
+
+void Stool()
+{
+    glPushMatrix();
+    float scale = 0.5;
+    glTranslatef(-0, 0.75, -1.5);      // Dịch chuyển
+    glScalef(scale, scale, scale);
+    // Thiết lập vật liệu cho ghế 
+    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
+    GLfloat m_sh[] = { 25 };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    // Bề mặt ghế
+    glPushMatrix();
+    glScalef(2.0, 0.4, 2.0);
+    cube(0.6, 0, 0, 1.0);     // Màu 
+    glPopMatrix();
+
+    // Chân ghế 
+    for (float x_leg = 0.2; x_leg <= 1.8; x_leg += 1.6)
+    {
+        for (float z_leg = 0.2; z_leg <= 1.8; z_leg += 1.6)
+        {
+            glPushMatrix();
+            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
+            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
+            GLUquadricObj* leg = gluNewQuadric();
+            gluCylinder(leg, 0.2, 0.2, 1.5, 30, 30); // Kích thước và chiều cao chân ghế
+            gluDeleteQuadric(leg);
+            glPopMatrix();
+        }
+    }
+
+
+    glPopMatrix();
+}
+
+void Table()
+{
+    glPushMatrix();
+    float scale = 0.5;
+    glTranslatef(0, 1, 0);      // Dịch chuyển
+    glScalef(scale, scale, scale);
+    // Thiết lập 
+    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
+    GLfloat m_sh[] = { 25 };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    // Bề mặt bàn
+    glPushMatrix();
+    glScalef(6.0, 0.4, 3.0);
+    cube(0.6, 0.4, 0.2, 1.0);     // Màu 
+    glPopMatrix();
+
+    // Chân bàn
+    for (float x_leg = 0.4; x_leg <= 5.6; x_leg += 5.2)
+    {
+        for (float z_leg = 0.4; z_leg <= 2.6; z_leg += 2.2)
+        {
+            glPushMatrix();
+            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
+            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
+            GLUquadricObj* leg = gluNewQuadric();
+            gluCylinder(leg, 0.3, 0.3, 2.0, 300, 300); // Kích thước và chiều cao chân
+            gluDeleteQuadric(leg);
+            glPopMatrix();
+        }
+    }
+
+
+    glPopMatrix();
+}
 
 /// Objects to display
 void objects()
