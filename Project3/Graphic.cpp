@@ -489,39 +489,75 @@ void ground()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
-
 void road()
 {
-    /// road in z-direction
+ /// First branch (aligned with z-axis)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[0]);
     glPushMatrix();
-    glScalef(15, 1, floor_height);
-    glTranslatef(-0.5, -0.9, -0.5);
+    glScalef(5, 1, 15); // Scale the road segment
+    glTranslatef(-0.5, -0.9, -0.5); // Position the road
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
-    /// road in x-direction
+    /// Second branch (rotated 120 degrees)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[1]);
     glPushMatrix();
-    glScalef(floor_width, 1, 15);
-    glTranslatef(-0.5, -0.9, -0.5);
+    glTranslatef(0.0, -0.9, 0.0); // Center of rotation
+    glRotatef(120.0, 0.0, 1.0, 0.0); // Rotate 120 degrees around the y-axis
+    glScalef(5, 1, 15); // Scale the road segment
+    glTranslatef(-0.5, 0.0, -0.5); // Adjust position
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
-    /// tow roads intersection
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[2]);
-    glPushMatrix();
-    glScalef(15, 1, 15);
-    glTranslatef(-0.5, -0.8, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
+    /// Third branch (rotated 240 degrees)
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[2]);*/
+    /*glPushMatrix();*/
+    /*glTranslatef(0.0, -0.9, 0.0); // Center of rotation*/
+    /*glRotatef(240.0, 0.0, 1.0, 0.0); // Rotate 240 degrees around the y-axis*/
+    /*glScalef(5, 1, 15); // Scale the road segment*/
+    /*glTranslatef(-0.5, 0.0, -0.5); // Adjust position*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
 }
+
+/*void road()*/
+/*{*/
+    /*/// road in z-direction*/
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[0]);*/
+    /*glPushMatrix();*/
+    /*glScalef(15, 1, floor_height);*/
+    /*glTranslatef(-0.5, -0.9, -0.5);*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
+    /**/
+    /*/// road in x-direction*/
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[1]);*/
+    /*glPushMatrix();*/
+    /*glScalef(floor_width, 1, 15);*/
+    /*glTranslatef(-0.5, -0.9, -0.5);*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
+    /**/
+    /*/// tow roads intersection*/
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[2]);*/
+    /*glPushMatrix();*/
+    /*glScalef(15, 1, 15);*/
+    /*glTranslatef(-0.5, -0.8, -0.5);*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
+/*}*/
 
 
 /// Building & Clock
@@ -1625,6 +1661,9 @@ void Table()
 /// Objects to display
 void objects()
 {
+	Billboard();
+	Stool();
+	Table();
     axes();
 
     flr();
@@ -1633,7 +1672,7 @@ void objects()
     car();
 
     buildings();
-    Clock();
+    /*Clock();*/
     jatriChaonePositioned();
 
     leftLight();
