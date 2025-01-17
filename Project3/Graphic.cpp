@@ -50,7 +50,7 @@ bool cloudMovement = true;
 GLfloat cloudPosition = 110;
 GLfloat cloudStepSize = 0.5;
 
-GLfloat eyeX = 0;
+GLfloat eyeX = 0+6;
 GLfloat eyeY = 5;
 GLfloat eyeZ = -27+20;
 
@@ -453,7 +453,8 @@ void ground()
     glBindTexture(GL_TEXTURE_2D, v[7]);
     glPushMatrix();
     glTranslatef(10, 0, -12.5);
-    glScalef(20.0, 0.1, 25.0);
+    /*glScalef(20.0, 0.1, 25.0);*/
+    glScalef(200.0, 0.1, 250.0);
     glTranslatef(-0.5, -0.95, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -463,7 +464,7 @@ void ground()
     glBindTexture(GL_TEXTURE_2D, v[7]);
     glPushMatrix();
     glTranslatef(10, 0, 12.5);
-    glScalef(20.0, 0.1, 25.0);
+    glScalef(200.0, 0.1, 25.0);
     glTranslatef(-0.5, -0.95, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -473,7 +474,7 @@ void ground()
     glBindTexture(GL_TEXTURE_2D, v[7]);
     glPushMatrix();
     glTranslatef(-10, 0, -12.5);
-    glScalef(20.0, 0.1, 25.0);
+    glScalef(200.0, 0.1, 25.0);
     glTranslatef(-0.5, -0.95, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -544,19 +545,20 @@ void road()
     glPushMatrix();
     glScalef(floor_width, 1, 15);
     glTranslatef(-0.5, -0.9, -0.5);
+    glRotatef(30.0, 0.0, 1.0, 0.0); // Rotate 240 degrees around the y-axis
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
     /// tow roads intersection
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[2]);
-    glPushMatrix();
-    glScalef(15, 1, 15);
-    glTranslatef(-0.5, -0.8, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[2]);*/
+    /*glPushMatrix();*/
+    /*glScalef(15, 1, 15);*/
+    /*glTranslatef(-0.5, -0.8, -0.5);*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
 }
 
 
