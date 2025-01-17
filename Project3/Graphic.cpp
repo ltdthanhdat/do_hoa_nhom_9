@@ -17,10 +17,10 @@ using namespace std;
 GLfloat width = 700;
 GLfloat height = 700;
 
-GLfloat floor_width = 40;
-GLfloat floor_height = 50;
+GLfloat floor_width = 80;
+GLfloat floor_height = 80;
 
-float rotation = 0;
+float rotation = -32;
 
 GLfloat leftLightHight = 40;
 GLfloat rightLightHight = 40;
@@ -50,13 +50,13 @@ bool cloudMovement = true;
 GLfloat cloudPosition = 110;
 GLfloat cloudStepSize = 0.5;
 
-GLfloat eyeX = 0;
-GLfloat eyeY = 5;
-GLfloat eyeZ = -27+20;
+GLfloat eyeX = -13;
+GLfloat eyeY = 10;
+GLfloat eyeZ = -13;
 
-GLfloat lookX = 0-50;
+GLfloat lookX = 0;
 GLfloat lookY = 5;
-GLfloat lookZ = 30+20;
+GLfloat lookZ = 30;
 
 vector<int> v;
 unsigned int ID;
@@ -148,7 +148,7 @@ void cube(float R = 0.5, float G = 0.5, float B = 0.5, float val = 1)
 
 
 /// Texture
-class BmpLoader{
+class BmpLoader {
 public:
     unsigned char* textureData;
     int iWidth, iHeight;
@@ -165,7 +165,7 @@ BmpLoader::BmpLoader(const char* filename)
 {
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open())
-        std::cout << "File not found" <<endl<<filename<< std::endl;
+        std::cout << "File not found" << endl << filename << std::endl;
     file.read(reinterpret_cast<char*>(&bfh), sizeof(BITMAPFILEHEADER));
     if (bfh.bfType != 0x4D42)
         std::cout << "Not a valid bitmap" << std::endl;
@@ -210,13 +210,11 @@ void LoadTexture(const char* filename)
 void texture_image()
 {
     /// road in z-direction
-    LoadTexture("Image\\z-direction.bmp");
+    LoadTexture("Image\\road.bmp");
     v.push_back(ID);
 
-    /// road in x-direction
-    LoadTexture("Image\\x-direction.bmp");
+    LoadTexture("Image\\bienquangcao.bmp");
     v.push_back(ID);
-
     /// road in crossing point
     LoadTexture("Image\\crossing.bmp");
     v.push_back(ID);
@@ -238,12 +236,11 @@ void texture_image()
     v.push_back(ID);
 
     /// left-front building ground
-    LoadTexture("Image\\grass-texture.bmp");
+    LoadTexture("Image\\viahe.bmp");
     v.push_back(ID);
 
     /// clock
-    LoadTexture("Image\\clock.bmp");
-    v.push_back(ID);
+
 }
 
 /// Lighting
@@ -258,7 +255,7 @@ void leftLight()
 
     glEnable(GL_LIGHT0);                            //enable OpenGL capabilities
 
-    if (leftLight_on){
+    if (leftLight_on) {
         glLightfv(GL_LIGHT0, GL_AMBIENT, l_amb);    //Return light source parameter values
         glLightfv(GL_LIGHT0, GL_DIFFUSE, l_dif);
         glLightfv(GL_LIGHT0, GL_SPECULAR, l_spec);
@@ -282,7 +279,7 @@ void leftLight()
     glLightfv(GL_LIGHT0, GL_POSITION, l_pos);
 }
 
-void leftLightIndicator(){
+void leftLightIndicator() {
     glPushMatrix();                             //Push the current matrix stack
     glTranslatef(10, leftLightHight + 1, 0);    //Multiplies the current matrix by a translation matrix
     glScalef(1, 1, 1);                          //Multiplies the current matrix by a general scaling matrix
@@ -409,7 +406,7 @@ void lookAtPointIndicator()
 }
 
 /// Grounding
-void axes(){
+void axes() {
     float length = 0.10;
     float width = 0.3;
 
@@ -438,93 +435,17 @@ void axes(){
     glPopMatrix();
 }
 
-void flr(){
+void flr() {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[7]);
     glPushMatrix();
     glScalef(floor_width, 1, floor_height);
     glTranslatef(-0.5, -1, -0.5);
     cube(1, 1, 1);
     glPopMatrix();
-}
-
-void ground()
-{
-    /// left Front floor
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[7]);
-    glPushMatrix();
-    glTranslatef(10, 0, -12.5);
-    glScalef(20.0, 0.1, 25.0);
-    glTranslatef(-0.5, -0.95, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// left Back floor
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[7]);
-    glPushMatrix();
-    glTranslatef(10, 0, 12.5);
-    glScalef(20.0, 0.1, 25.0);
-    glTranslatef(-0.5, -0.95, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// right Front floor
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[7]);
-    glPushMatrix();
-    glTranslatef(-10, 0, -12.5);
-    glScalef(20.0, 0.1, 25.0);
-    glTranslatef(-0.5, -0.95, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// right Back floor
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[7]);
-    glPushMatrix();
-    glTranslatef(-10, 0, 12.5);
-    glScalef(20.0, 0.1, 25.0);
-    glTranslatef(-0.5, -0.95, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
-/*void road()*/
-/*{*/
- /// First branch (aligned with z-axis)
-    /*glEnable(GL_TEXTURE_2D);*/
-    /*glBindTexture(GL_TEXTURE_2D, v[0]);*/
-    /*glPushMatrix();*/
-    /*glScalef(5, 1, 15); // Scale the road segment*/
-    /*glTranslatef(-0.5, -0.9, -0.5); // Position the road*/
-    /*cube(1.0, 1.0, 1.0, 1.0);*/
-    /*glPopMatrix();*/
-    /*glDisable(GL_TEXTURE_2D);*/
 
-    /// Second branch (rotated 120 degrees)
-    /*glEnable(GL_TEXTURE_2D);*/
-    /*glBindTexture(GL_TEXTURE_2D, v[1]);*/
-    /*glPushMatrix();*/
-    /*glTranslatef(0.0, -0.9, 0.0); // Center of rotation*/
-    /*glRotatef(120.0, 0.0, 1.0, 0.0); // Rotate 120 degrees around the y-axis*/
-    /*glScalef(5, 1, 15); // Scale the road segment*/
-    /*glTranslatef(-0.5, 0.0, -0.5); // Adjust position*/
-    /*cube(1.0, 1.0, 1.0, 1.0);*/
-    /*glPopMatrix();*/
-    /*glDisable(GL_TEXTURE_2D);*/
-
-    /// Third branch (rotated 240 degrees)
-    /*glEnable(GL_TEXTURE_2D);*/
-    /*glBindTexture(GL_TEXTURE_2D, v[2]);*/
-    /*glPushMatrix();*/
-    /*glTranslatef(0.0, -0.9, 0.0); // Center of rotation*/
-    /*glRotatef(240.0, 0.0, 1.0, 0.0); // Rotate 240 degrees around the y-axis*/
-    /*glScalef(5, 1, 15); // Scale the road segment*/
-    /*glTranslatef(-0.5, 0.0, -0.5); // Adjust position*/
-    /*cube(1.0, 1.0, 1.0, 1.0);*/
-    /*glPopMatrix();*/
-    /*glDisable(GL_TEXTURE_2D);*/
-/*}*/
 
 void road()
 {
@@ -532,34 +453,21 @@ void road()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[0]);
     glPushMatrix();
-    glScalef(15, 1, floor_height);
-    glTranslatef(-0.5, -0.9, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
+    glScalef(10, 1, floor_height);
+    glTranslatef(-1.5, -0.9, -0.5);
+    cube(0.5, 0.5, 0.7, 1.0);
     glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
 
     /// road in x-direction
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[1]);
-    glPushMatrix();
-    glScalef(floor_width, 1, 15);
-    glTranslatef(-0.5, -0.9, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
 
-    /// tow roads intersection
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[2]);
+
     glPushMatrix();
-    glScalef(15, 1, 15);
-    glTranslatef(-0.5, -0.8, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
+    glScalef(floor_width, 1, 10);
+    glTranslatef(-0.5, -0.9, -1.5);
+    cube(0.5, 0.5, 0.7, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
-
-
 /// Building & Clock
 void building()
 {
@@ -568,7 +476,7 @@ void building()
     glBindTexture(GL_TEXTURE_2D, v[3]);
     glPushMatrix();
     glTranslatef(15.0, 0, -17.0);
-    glScalef(0.1, 20, 10);
+    glScalef(0.1, 40, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -577,8 +485,8 @@ void building()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[4]);
     glPushMatrix();
-    glTranslatef(20.0, 0, -17.0);
-    glScalef(0.1, 20, 10);
+    glTranslatef(25.0, 0, -17.0);
+    glScalef(0.1, 40, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -587,8 +495,8 @@ void building()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[5]);
     glPushMatrix();
-    glTranslatef(17.5, 0, -22.0);
-    glScalef(5, 20, 0.1);
+    glTranslatef(20, 0, -22.0);
+    glScalef(10, 40, 0.1);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -596,8 +504,8 @@ void building()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[5]);
     glPushMatrix();
-    glTranslatef(17.5, 0, -12.0);
-    glScalef(5, 20, 0.1);
+    glTranslatef(20, 0, -12.0);
+    glScalef(10, 40, 0.1);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -606,28 +514,109 @@ void building()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[6]);
     glPushMatrix();
-    glTranslatef(17.5, 20, -17.0);
-    glScalef(5, 0.1, 10);
+    glTranslatef(20, 40, -17.0);
+    glScalef(10, 0.1, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
 }
-
 void buildings()
-{
+{//
     glPushMatrix();
+    glTranslatef(-18, 0, -7);
     building();
     glPopMatrix();
+
     glPushMatrix();
-    glTranslatef(0, 0, 34);
+    glTranslatef(-6, 0, -7);
     building();
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(6, 0, -7);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(18, 0, -7);
+    building();
+    glPopMatrix();
+//
+
+    glPushMatrix();
+    glTranslatef(-16, 0, 22);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-4, 0, 22);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(8, 0, 22);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(20, 0, 22);
+    building();
+    glPopMatrix();
+
+//
+
+
+    glPushMatrix();
+    glTranslatef(-16, 0, 34);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-16, 0, 46);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-16, 0, 58);
+    building();
+    glPopMatrix();
+
+
+
+    //
+    glPushMatrix();
+
+    glPushMatrix();
+    glTranslatef(-43, 0, 22);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-43, 0, 34);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-43, 0, 46);
+    building();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-43, 0, 58);
+    building();
+    glPopMatrix();
+
+    glPopMatrix();
+
+    //
     glPushMatrix();
     glTranslatef(0, 0, -35);
     glRotated(-180, 0, 1, 0);
     building();
+
+
     glPopMatrix();
     glPushMatrix();
     glRotated(-180, 0, 1, 0);
@@ -635,101 +624,13 @@ void buildings()
     glPopMatrix();
 }
 
-void ClockRaw()
-{
-    /// clock base
-    /*glPushMatrix();
-    glScalef(4, 2, 3);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.941, 0.502, 0.502, 1.0);
-    glPopMatrix();*/
-    /// clock root
-    glPushMatrix();
-    GLfloat m_amb[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_diff[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_spec[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_sh[] = { 30 };
 
-    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-
-    glRotated(90, -1, 0, 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* clock_obj = gluNewQuadric();
-    gluCylinder(clock_obj, 1.0, 1.0, 32.0, 300.0, 300.0);
-    glEnd();
-    glPopMatrix();
-    /// clock holder
-    glPushMatrix();
-    glTranslatef(0, 30, 0);
-    glScalef(4, 0.2, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.502, 0.000, 0.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0, 34, 0);
-    glScalef(4, 0.2, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.502, 0.000, 0.000, 1.0);
-    glPopMatrix();
-
-
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(2, 30, 0);
-    glScalef(0.2, 4, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(-2, 30, 0);
-    glScalef(0.2, 4, 4);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-
-
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(0, 30, 2);
-    glScalef(4, 4, 0.2);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(0, 30, -2);
-    glScalef(4, 4, 0.2);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-}
-
-void Clock()
-{
-    glPushMatrix();
-    glTranslatef(0, 0, -3);
-    ClockRaw();
-    glPopMatrix();
-}
 
 
 /// Sky
 void sky()
 {
-    GLfloat m_amb[] = {0.529, 0.808, 0.922, 1.0, 1.0};
+    GLfloat m_amb[] = { 0.529, 0.808, 0.922, 1.0, 1.0 };
     GLfloat m_diff[] = { 0.529, 0.808, 0.922, 1.0, 1.0 };
     GLfloat m_spec[] = { 0.529, 0.808, 0.922, 1.0, 1.0 };
     GLfloat m_sh[] = { 30 };
@@ -747,23 +648,23 @@ void sky()
     glPopMatrix();
 }
 
-void sun(){
+void sun() {
     GLfloat m_amb[] = { 1,1,0,1 };
     GLfloat m_diff[] = { 1,1,0,1 };
     GLfloat m_spec[] = { 1,1,0,1 };
     GLfloat m_sh[] = { 30 };
 
-        glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-        glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-        glPushMatrix();
-        glTranslatef(20, 80, 40);
-        glutSolidSphere(2, 40, 40);
-        glPopMatrix();
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+    glPushMatrix();
+    glTranslatef(20, 80, 40);
+    glutSolidSphere(2, 40, 40);
+    glPopMatrix();
 }
 
-void cloud(){
+void cloud() {
     GLfloat m_amb[] = { 1,1,1,1 };
     GLfloat m_diff[] = { 1,1,1,1 };
     GLfloat m_spec[] = { 1,1,1,1 };
@@ -789,7 +690,7 @@ void cloud(){
     glutSolidSphere(2, 30, 34);
     glPopMatrix();
 
-    glPushMatrix(); 
+    glPushMatrix();
     glTranslated(-15.0, 42, 50);
     glutSolidSphere(2.5, 30, 30);
     glPopMatrix();
@@ -896,144 +797,103 @@ void plane()
     glPopMatrix();
 }
 
-
-/// Den Giao Thong
-void lamPost()
+void Billboard()
 {
-    GLfloat m_amb[] = { 0.275, 0.510, 0.706, 1.0 };
-    GLfloat m_diff[] = { 0.275, 0.510, 0.706, 1.0 };
-    GLfloat m_spec[] = { 0.275, 0.510, 0.706, 1.0 };
-    GLfloat m_sh[] = { 30 };
 
-    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-
-    /// lamp post
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[1]);
     glPushMatrix();
-    glTranslated(9, 0, -22);
-    glRotated(90, -1, 0, 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* obj = gluNewQuadric();
-    gluCylinder(obj, 0.3, 0.3, 15.0, 300.0, 300.0);
-    glEnd();
-    glPopMatrix();
-
-    /// lamp holder
-    glPushMatrix();
-    glTranslatef(7.0, 15.0, -22);
-    glScalef(4.0, 0.2, 0.5);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.275, 0.510, 0.706, 1.0);
-    glPopMatrix();
-
-    /// lamp
-    glPushMatrix();
-    glTranslatef(5.5, 14.0, -22);
-    glScalef(0.2, 1.0, 0.2);
+    glTranslatef(0, 10, -2);
+    glScalef(12, 4, 0.2);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 }
 
-void lamPosts()
+void Stool()
 {
     glPushMatrix();
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, 10);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, 34);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, 44);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, -34);
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, -44);
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(0, 0, -10);
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-    glPushMatrix();
-    glRotated(-180, 0, 1, 0);
-    lamPost();
-    glPopMatrix();
-}
-
-
-/// Trees
-void tree()
-{
-    GLfloat m_amb[] = { 0.000, 0.392, 0.000,1 };
-    GLfloat m_diff[] = { 0.000, 0.392, 0.000,1 };
-    GLfloat m_spec[] = { 0.000, 0.392, 0.000,1 };
-    GLfloat m_sh[] = { 30 };
+    float scale = 0.5;
+    glTranslatef(-0, 0.75, -1.5);      // Dịch chuyển
+    glScalef(scale, scale, scale);
+    // Thiết lập vật liệu cho ghế 
+    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
+    GLfloat m_sh[] = { 25 };
 
     glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
     glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
     glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
 
-    /// root
+    // Bề mặt ghế
     glPushMatrix();
-    glTranslated(11, 0, -17);
-    glRotated(90, -1, 0, 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* roo_obj = gluNewQuadric();
-    gluCylinder(roo_obj, 0.3, 0.3, 9.0, 300.0, 300.0);
-    glEnd();
+    glScalef(2.0, 0.4, 2.0);
+    cube(0.6, 0, 0, 1.0);     // Màu 
     glPopMatrix();
-    /// branch
-    glPushMatrix();
-    glTranslated(11, 8.0, -17);
-    glRotated(90, -1, 0, 0);
-    glutSolidCone(2.5, 4.0, 300, 300);
-    glPopMatrix();
-    glPushMatrix();
-    glTranslated(11, 10.5, -17);
-    glRotated(90, -1, 0, 0);
-    glutSolidCone(2.5, 4.0, 300, 300);
+
+    // Chân ghế 
+    for (float x_leg = 0.2; x_leg <= 1.8; x_leg += 1.6)
+    {
+        for (float z_leg = 0.2; z_leg <= 1.8; z_leg += 1.6)
+        {
+            glPushMatrix();
+            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
+            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
+            GLUquadricObj* leg = gluNewQuadric();
+            gluCylinder(leg, 0.2, 0.2, 1.5, 30, 30); // Kích thước và chiều cao chân ghế
+            gluDeleteQuadric(leg);
+            glPopMatrix();
+        }
+    }
+
+
     glPopMatrix();
 }
 
-void trees()
-{   
-    //Ve cay 1
+void Table()
+{
     glPushMatrix();
-    tree();
+    float scale = 0.5;
+    glTranslatef(0, 1, 0);      // Dịch chuyển
+    glScalef(scale, scale, scale);
+    // Thiết lập 
+    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
+    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
+    GLfloat m_sh[] = { 25 };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    // Bề mặt bàn
+    glPushMatrix();
+    glScalef(6.0, 0.4, 3.0);
+    cube(0.6, 0.4, 0.2, 1.0);     // Màu 
     glPopMatrix();
-    //Cay 2
-    glPushMatrix();
-    glTranslated(0, 0, 34.0);
-    tree();
-    glPopMatrix();
-    //Cay 3
-    glPushMatrix();
-    glTranslated(-22.0, 0, 0);
-    tree();
-    glPopMatrix();
-    //Cay 4
-    glPushMatrix();
-    glTranslated(-22.0, 0, 34.0);
-    tree();
+
+    // Chân bàn
+    for (float x_leg = 0.4; x_leg <= 5.6; x_leg += 5.2)
+    {
+        for (float z_leg = 0.4; z_leg <= 2.6; z_leg += 2.2)
+        {
+            glPushMatrix();
+            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
+            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
+            GLUquadricObj* leg = gluNewQuadric();
+            gluCylinder(leg, 0.3, 0.3, 2.0, 300, 300); // Kích thước và chiều cao chân
+            gluDeleteQuadric(leg);
+            glPopMatrix();
+        }
+    }
+
+
     glPopMatrix();
 }
-
 
 /// Jatri Chaone
 void jatriChaone()
@@ -1108,174 +968,7 @@ void jatriChaonePositioned()
 }
 
 
-/// Traffic System
-void trafficSystem()
-{
-    /// traffic light base
-    glPushMatrix();
-    glScalef(1.5, 1.5, 1.5);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.941, 0.502, 0.502, 1.0);
-    glPopMatrix();
-    /// traffic light root
 
-    GLfloat m_amb[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_diff[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_spec[] = { 0.941, 0.502, 0.502, 1.0 };
-    GLfloat m_sh[] = { 30 };
-    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-
-    glPushMatrix();
-    glRotated(90, -1,0 , 0);
-    glBegin(GL_POLYGON);
-    GLUquadricObj* clock_obj = gluNewQuadric();
-    gluCylinder(clock_obj, 0.5, 0.5, 20, 300.0, 300.0);
-    glEnd();
-    glPopMatrix();
-
-    /// traffic light holder
-    glPushMatrix();
-    glTranslatef(0, 25.5, 0);
-    glScalef(3, 8, 3);
-    glTranslatef(-0.5, -1.0, -0.5);
-    cube(0.0, 0.0, 1.0, 1.0);
-    glPopMatrix();
-}
-
-void trafficSystem1() {
-    trafficSystem();
-
-    glPushMatrix();
-    glTranslatef(-2.0, 30.0, 0.0);
-    glScalef(0.1, 1.5, 1.0);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 0.0, 0.0, 1.0);
-    else cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-2.0, 28.0, 0.0);
-    glScalef(0.1, 1.5, 1.0);
-    glTranslatef(-0.5, -5.0, -0.5);
-    cube(1.0, 1.0, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-2.0, 26.0, 0.0);
-    glScalef(0.1, 1.5, 1.0);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(0.0, 1.0, 0.0, 1.0);
-    glPopMatrix();
-
-}
-
-void trafficSystem2() {
-    trafficSystem();
-    glPushMatrix();
-    glTranslatef(0, 30.0, 2.0);
-    glScalef(1.0, 1.5, 0.1);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(1.0, 0.000, 0.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0, 28.0, 2.0);
-    glScalef(1.0, 1.5, 0.1);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(1.000, 1.000, 1.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0, 26.0, 2.0);
-    glScalef(1.0, 1.5, 0.1);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(0.0, 1.000, 0.000, 1.0);
-    else cube(1.000, 1.000, 1.000, 1.0);
-    glPopMatrix();
-}
-
-void trafficSystem3() {
-    trafficSystem();
-    glPushMatrix();
-    glTranslatef(0.0, 30.0, -2.0);
-    glScalef(1.0, 1.5, 0.1);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(1.0, 0.000, 0.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0, 28.0, -2.0);
-    glScalef(1.0, 1.5, 0.1);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(1.000, 1.000, 1.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0, 26.0, -2.0);
-    glScalef(1.0, 1.5, 0.1);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(0.0, 1.000, 0.000, 1.0);
-    else cube(1.000, 1.000, 1.000, 1.0);
-    glPopMatrix();
-}
-
-void trafficSystem4() {
-    trafficSystem();
-    glPushMatrix();
-    glTranslatef(2.0, 30.0, 0.0);
-    glScalef(0.1, 1.5, 1.0);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 0.0, 0.0, 1.0);
-    else cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(2.0, 28.0, 0.0);
-    glScalef(0.1, 1.5, 1.0);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(1.000, 1.000, 1.000, 1.0);
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(2.0, 26.0, 0.0);
-    glScalef(0.1, 1.5, 1.0);
-    glTranslatef(-0.5, -5.0, -0.5);
-    if (!redSignal) cube(1.0, 1.000, 1.000, 1.0);
-    else cube(0.0, 1.0, 0.0, 1.0);
-    glPopMatrix();
-}
-
-void trafficSystemPositioned()
-{
-    glPushMatrix();
-    glTranslatef(-10,0,10);
-    trafficSystem1();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(10,0,10);
-    trafficSystem2();
-    glPopMatrix();
-
-   glPushMatrix();
-    glTranslatef(-10,0,-10);
-    trafficSystem3();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(10,0,-10);
-    trafficSystem4();
-    glPopMatrix();
-}
 
 
 /// Curves & Surfaces
@@ -1520,10 +1213,10 @@ void car() {
     /// car 1
     glPushMatrix();
     if (!redSignal) {
-        glTranslatef(-1.0, 0, car1Initial += carStep);
+        glTranslatef(-8.0, 0, car1Initial += carStep);
     }
     else {
-        glTranslatef(-1.0, 0, car1Initial);
+        glTranslatef(-8.0, 0, car1Initial);
     }
 
     if (car1Initial > 40.0) {
@@ -1532,148 +1225,32 @@ void car() {
 
     wheelPositioned();
     carBodyRaw();
+
     glPopMatrix();
 
-    /// car 2
-    glPushMatrix();
-    if (!redSignal) {
-        glTranslatef(1.0, 0, car2Initial -= carStep);
-    }
-    else {
-        glTranslatef(1.0, 0, car2Initial);
-    }
-
-    if (car2Initial < -40.0) {
-        car2Initial = 0.0;
-    }
-
-    glRotated(-180, 0, 1, 0);
-    wheelPositioned();
-    carBodyRaw();
-    glPopMatrix();
-
+    
     glPushMatrix();
     glRotated(-90, 0, 1, 0);
-    glTranslatef(-1.0, 0, 4);
+    glTranslatef(-9.0, 0, 5);
     wheelPositioned();
     carBodyRaw();
     glPopMatrix();
 }
 
-void Billboard()
-{
-
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[8]);
-    glPushMatrix();
-    glTranslatef(0, 10, -2);
-    glScalef(12, 4, 0.2);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-}
-
-void Stool()
-{
-    glPushMatrix();
-    float scale = 0.5;
-    glTranslatef(-0, 0.75, -1.5);      // Dịch chuyển
-    glScalef(scale, scale, scale);
-    // Thiết lập vật liệu cho ghế 
-    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
-    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
-    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
-    GLfloat m_sh[] = { 25 };
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-
-    // Bề mặt ghế
-    glPushMatrix();
-    glScalef(2.0, 0.4, 2.0);
-    cube(0.6, 0, 0, 1.0);     // Màu 
-    glPopMatrix();
-
-    // Chân ghế 
-    for (float x_leg = 0.2; x_leg <= 1.8; x_leg += 1.6)
-    {
-        for (float z_leg = 0.2; z_leg <= 1.8; z_leg += 1.6)
-        {
-            glPushMatrix();
-            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
-            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
-            GLUquadricObj* leg = gluNewQuadric();
-            gluCylinder(leg, 0.2, 0.2, 1.5, 30, 30); // Kích thước và chiều cao chân ghế
-            gluDeleteQuadric(leg);
-            glPopMatrix();
-        }
-    }
-
-
-    glPopMatrix();
-}
-
-void Table()
-{
-    glPushMatrix();
-    float scale = 0.5;
-    glTranslatef(0, 1, 0);      // Dịch chuyển
-    glScalef(scale, scale, scale);
-    // Thiết lập 
-    GLfloat m_amb[] = { 0.6, 0.4, 0.2, 1.0 };
-    GLfloat m_diff[] = { 0.6, 0.4, 0.2, 1.0 };
-    GLfloat m_spec[] = { 0.5, 0.3, 0.1, 1.0 };
-    GLfloat m_sh[] = { 25 };
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
-    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
-
-    // Bề mặt bàn
-    glPushMatrix();
-    glScalef(6.0, 0.4, 3.0);
-    cube(0.6, 0.4, 0.2, 1.0);     // Màu 
-    glPopMatrix();
-
-    // Chân bàn
-    for (float x_leg = 0.4; x_leg <= 5.6; x_leg += 5.2)
-    {
-        for (float z_leg = 0.4; z_leg <= 2.6; z_leg += 2.2)
-        {
-            glPushMatrix();
-            glTranslatef(x_leg, 0.0, z_leg); // Vị trí chân
-            glRotatef(90, 1, 0, 0);         // Xoay hình trụ dọc theo trục y
-            GLUquadricObj* leg = gluNewQuadric();
-            gluCylinder(leg, 0.3, 0.3, 2.0, 300, 300); // Kích thước và chiều cao chân
-            gluDeleteQuadric(leg);
-            glPopMatrix();
-        }
-    }
-
-
-    glPopMatrix();
-}
 
 /// Objects to display
 void objects()
 {
-	/*Billboard();*/
-	/*Stool();*/
-	/*Table();*/
     axes();
 
-    flr();
-    ground();
-    road();
-    /*car();*/
-
     buildings();
-    /*Clock();*/
-    jatriChaonePositioned();
+    flr();
+    road();
+    car();
+    Billboard();
+    Stool();
+    Table();
+    //jatriChaonePositioned();
 
     leftLight();
     rightLight();
@@ -1685,16 +1262,16 @@ void objects()
 
     ///eyeIndicator();
     //lookAtPointIndicator();
-
+    glPushMatrix();
+    glRotated(45, 0, 1, 0);
     sky();
-    /*clouds();*/
+    clouds();
     sun();
-    /*plane();*/
+    plane();
+    glPopMatrix();
 
-    /*lamPosts();*/
-    /*trees();*/
 
-    /*trafficSystemPositioned();*/
+    //trafficSystemPositioned();
 
     ///cout<<"X : "<<lookX<<" "<<"Y : "<<lookY<<" "<<"Z : "<<lookZ<<endl;
 }
@@ -1709,9 +1286,10 @@ static void display(void)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    glRotatef(rotation, 0, 1, 0);
     gluLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, 0, 1, 0);
 
-    glRotatef(rotation, 0, 1, 0);
+    
 
     objects();
 
@@ -1769,16 +1347,9 @@ static void key(unsigned char key, int x, int y)
         lookY++;
         break;
     case 'i':
-        if (lookY > 5) {
-            lookY--;
-            eyeY--;
-        }
-        else {
-            lookY;
-            eyeY;
-        }
-        //eyeY--;
-        //lookY--;
+        lookY--;
+        eyeY--;
+
         break;
 
     case '=':
@@ -1794,14 +1365,10 @@ static void key(unsigned char key, int x, int y)
         //lookZ++;
         break;
     case '-':
-        if (lookZ > 29) {
-            lookZ--;
-            eyeZ--;
-        }
-        else {
-            lookZ;
-            eyeZ;
-        }
+
+        lookZ--;
+        eyeZ--;
+
         //eyeZ--;
         //lookZ--;
         break;
