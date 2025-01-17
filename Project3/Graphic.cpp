@@ -52,11 +52,11 @@ GLfloat cloudStepSize = 0.5;
 
 GLfloat eyeX = 0;
 GLfloat eyeY = 5;
-GLfloat eyeZ = -27;
+GLfloat eyeZ = -27+20;
 
-GLfloat lookX = 0;
+GLfloat lookX = 0-50;
 GLfloat lookY = 5;
-GLfloat lookZ = 30;
+GLfloat lookZ = 30+20;
 
 vector<int> v;
 unsigned int ID;
@@ -489,29 +489,29 @@ void ground()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
-void road()
-{
+/*void road()*/
+/*{*/
  /// First branch (aligned with z-axis)
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[0]);
-    glPushMatrix();
-    glScalef(5, 1, 15); // Scale the road segment
-    glTranslatef(-0.5, -0.9, -0.5); // Position the road
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[0]);*/
+    /*glPushMatrix();*/
+    /*glScalef(5, 1, 15); // Scale the road segment*/
+    /*glTranslatef(-0.5, -0.9, -0.5); // Position the road*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
 
     /// Second branch (rotated 120 degrees)
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[1]);
-    glPushMatrix();
-    glTranslatef(0.0, -0.9, 0.0); // Center of rotation
-    glRotatef(120.0, 0.0, 1.0, 0.0); // Rotate 120 degrees around the y-axis
-    glScalef(5, 1, 15); // Scale the road segment
-    glTranslatef(-0.5, 0.0, -0.5); // Adjust position
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
+    /*glEnable(GL_TEXTURE_2D);*/
+    /*glBindTexture(GL_TEXTURE_2D, v[1]);*/
+    /*glPushMatrix();*/
+    /*glTranslatef(0.0, -0.9, 0.0); // Center of rotation*/
+    /*glRotatef(120.0, 0.0, 1.0, 0.0); // Rotate 120 degrees around the y-axis*/
+    /*glScalef(5, 1, 15); // Scale the road segment*/
+    /*glTranslatef(-0.5, 0.0, -0.5); // Adjust position*/
+    /*cube(1.0, 1.0, 1.0, 1.0);*/
+    /*glPopMatrix();*/
+    /*glDisable(GL_TEXTURE_2D);*/
 
     /// Third branch (rotated 240 degrees)
     /*glEnable(GL_TEXTURE_2D);*/
@@ -524,40 +524,40 @@ void road()
     /*cube(1.0, 1.0, 1.0, 1.0);*/
     /*glPopMatrix();*/
     /*glDisable(GL_TEXTURE_2D);*/
-}
-
-/*void road()*/
-/*{*/
-    /*/// road in z-direction*/
-    /*glEnable(GL_TEXTURE_2D);*/
-    /*glBindTexture(GL_TEXTURE_2D, v[0]);*/
-    /*glPushMatrix();*/
-    /*glScalef(15, 1, floor_height);*/
-    /*glTranslatef(-0.5, -0.9, -0.5);*/
-    /*cube(1.0, 1.0, 1.0, 1.0);*/
-    /*glPopMatrix();*/
-    /*glDisable(GL_TEXTURE_2D);*/
-    /**/
-    /*/// road in x-direction*/
-    /*glEnable(GL_TEXTURE_2D);*/
-    /*glBindTexture(GL_TEXTURE_2D, v[1]);*/
-    /*glPushMatrix();*/
-    /*glScalef(floor_width, 1, 15);*/
-    /*glTranslatef(-0.5, -0.9, -0.5);*/
-    /*cube(1.0, 1.0, 1.0, 1.0);*/
-    /*glPopMatrix();*/
-    /*glDisable(GL_TEXTURE_2D);*/
-    /**/
-    /*/// tow roads intersection*/
-    /*glEnable(GL_TEXTURE_2D);*/
-    /*glBindTexture(GL_TEXTURE_2D, v[2]);*/
-    /*glPushMatrix();*/
-    /*glScalef(15, 1, 15);*/
-    /*glTranslatef(-0.5, -0.8, -0.5);*/
-    /*cube(1.0, 1.0, 1.0, 1.0);*/
-    /*glPopMatrix();*/
-    /*glDisable(GL_TEXTURE_2D);*/
 /*}*/
+
+void road()
+{
+    /// road in z-direction
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[0]);
+    glPushMatrix();
+    glScalef(15, 1, floor_height);
+    glTranslatef(-0.5, -0.9, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    /// road in x-direction
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[1]);
+    glPushMatrix();
+    glScalef(floor_width, 1, 15);
+    glTranslatef(-0.5, -0.9, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    /// tow roads intersection
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[2]);
+    glPushMatrix();
+    glScalef(15, 1, 15);
+    glTranslatef(-0.5, -0.8, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
 
 
 /// Building & Clock
@@ -1661,15 +1661,15 @@ void Table()
 /// Objects to display
 void objects()
 {
-	Billboard();
-	Stool();
-	Table();
+	/*Billboard();*/
+	/*Stool();*/
+	/*Table();*/
     axes();
 
     flr();
     ground();
     road();
-    car();
+    /*car();*/
 
     buildings();
     /*Clock();*/
@@ -1687,14 +1687,14 @@ void objects()
     //lookAtPointIndicator();
 
     sky();
-    clouds();
+    /*clouds();*/
     sun();
-    plane();
+    /*plane();*/
 
-    lamPosts();
-    trees();
+    /*lamPosts();*/
+    /*trees();*/
 
-    trafficSystemPositioned();
+    /*trafficSystemPositioned();*/
 
     ///cout<<"X : "<<lookX<<" "<<"Y : "<<lookY<<" "<<"Z : "<<lookZ<<endl;
 }
