@@ -11,6 +11,8 @@
 #include<iostream>
 #include<fstream>
 
+
+
 //#include <bits/stdc++.h>
 using namespace std;
 
@@ -529,12 +531,12 @@ void building()
 {
     /// leftFront FrontXCube
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[3]);
+    glBindTexture(GL_TEXTURE_2D, v[3]);  // Gắn texture từ danh sách `v`.
     glPushMatrix();
-    glTranslatef(15.0, 0, -17.0);
-    glScalef(0.1, 20, 10);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
+    glTranslatef(15.0, 0, -17.0);   // Di chuyển vị trí của bức tường.
+    glScalef(0.1, 20, 10);    // Thay đổi kích thước: rộng 0.1, cao 20, sâu 10.
+    glTranslatef(-0.5, 0, -0.5);   // Căn chỉnh trung tâm của hình khối.
+    cube(1.0, 1.0, 1.0, 1.0);     // Vẽ khối lập phương với màu trắng.
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
     /// leftFront BackXCube()
@@ -558,7 +560,7 @@ void building()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[5]);
+    glBindTexture(GL_TEXTURE_2D, v[6]);
     glPushMatrix();
     glTranslatef(17.5, 0, -12.0);
     glScalef(5, 20, 0.1);
@@ -584,15 +586,25 @@ void buildings()
     glPushMatrix();
     building();
     glPopMatrix();
+
     glPushMatrix();
     glTranslatef(0, 0, 34);
     building();
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-18,0,-30);
+    glRotated(-90, 0, 1, 0);
+    building();
+    glPopMatrix();
+
+
     glPushMatrix();
     glTranslatef(0, 0, -35);
     glRotated(-180, 0, 1, 0);
     building();
     glPopMatrix();
+
     glPushMatrix();
     glRotated(-180, 0, 1, 0);
     ///building();
