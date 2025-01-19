@@ -51,11 +51,11 @@ GLfloat cloudPosition = 110;
 GLfloat cloudStepSize = 0.5;
 
 GLfloat eyeX = -12;
-GLfloat eyeY = 10;
+GLfloat eyeY = 10+6;
 GLfloat eyeZ = -12;
 
 GLfloat lookX = 50;
-GLfloat lookY = 0;
+GLfloat lookY = 0+6;
 GLfloat lookZ = 180;
 
 vector<int> v;
@@ -483,7 +483,7 @@ void building()
     glDisable(GL_TEXTURE_2D);
     /// leftFront BackXCube()
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glBindTexture(GL_TEXTURE_2D, v[5]);
     glPushMatrix();
     glTranslatef(25.0, 0, -17.0);
     glScalef(0.1, 40, 10);
