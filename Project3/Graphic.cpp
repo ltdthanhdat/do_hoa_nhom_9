@@ -1002,78 +1002,6 @@ void Tables()
     glPopMatrix();
 }
 
-/// Jatri Chaone
-void jatriChaone()
-{
-    /// floor
-    glPushMatrix();
-    glTranslatef(16.5, 0, -17.0);
-    glScalef(7, 0.1, 12);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.902, 0.902, 0.980, 1.0);
-    glPopMatrix();
-    /// roof
-    glPushMatrix();
-    glTranslatef(16.5, 15, -17.0);
-    glScalef(7, 0.1, 12);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.902, 0.902, 0.980, 1.0);
-    glPopMatrix();
-
-    /// back wall in z
-    glPushMatrix();
-    glTranslatef(16.5, 0, -23.0);
-    glScalef(7, 15.0, 0.1);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.804, 0.361, 0.361, 1.0);
-    glPopMatrix();
-    /// front wall in z
-    glPushMatrix();
-    glTranslatef(16.5, 0, -11.0);
-    glScalef(7, 15.0, 0.1);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.804, 0.361, 0.361, 1.0);
-    glPopMatrix();
-    /// back wall in x
-    glPushMatrix();
-    glTranslatef(20, 0, -17.0);
-    glScalef(0.1, 15.0, 12);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.804, 0.361, 0.361, 1.0);
-    glPopMatrix();
-
-    /// back seat in x
-    glPushMatrix();
-    glTranslatef(18.5, 0, -17.0);
-    glScalef(2.0, 3.0, 12.0);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.180, 0.545, 0.341, 1.0);
-    glPopMatrix();
-    /// back seat in z
-    glPushMatrix();
-    glTranslatef(15.5, 0, -12.0);
-    glScalef(4.0, 3.0, 2.0);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.180, 0.545, 0.341, 1.0);
-    glPopMatrix();
-    /// front seat in z
-    glPushMatrix();
-    glTranslatef(15.5, 0, -22.0);
-    glScalef(4.0, 3.0, 2.0);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(0.180, 0.545, 0.341, 1.0);
-    glPopMatrix();
-}
-
-void jatriChaonePositioned()
-{
-    glPushMatrix();
-    glTranslatef(1.0, 0, -2.0);
-    glRotated(-180, 0, 1, 0);
-    jatriChaone();
-    glPopMatrix();
-}
-
 void lamPost()
 {
     GLfloat m_amb[] = { 0.275, 0.510, 0.706, 1.0 };
@@ -1593,18 +1521,11 @@ void objects()
     car();
     Billboard();
     Tables();
-    //jatriChaonePositioned();
 
     leftLight();
     rightLight();
     spotLight();
 
-    //leftLightIndicator();
-    //rightLightIndicator();
-    //spotLightIndicator();
-
-    ///eyeIndicator();
-    //lookAtPointIndicator();
     glPushMatrix();
     glRotated(45, 0, 1, 0);
     sky();
@@ -1619,7 +1540,8 @@ void objects()
     pole1();
     pole2();
     pole3();
-    //DrawCylinderBetweenPoints(5.8, 29.0, 5.0, 5.2, 29.0, 22.0); // Vẽ hình trụ từ 
+
+    // Vẽ hình trụ từ 
     DrawCylinderBetweenPoints(-1, 19, -1, -1, 19.5, -18.0);
     DrawCylinderBetweenPoints(-15, 19, 8, -1, 19.5, -18.0);
     tree1();
@@ -1707,9 +1629,8 @@ static void key(unsigned char key, int x, int y)
         break;
 
     case '=':
-      
-            lookZ++;
-            eyeZ++;
+		lookZ++;
+		eyeZ++;
                
         break;
     case '-':
