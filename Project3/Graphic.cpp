@@ -609,7 +609,6 @@ void buildings()
 
     glPushMatrix();
     glTranslatef(-43, 0, 22);
-    glRotated(-90, 0, 1, 0);
     building();
     glPopMatrix();
 
