@@ -1580,10 +1580,10 @@ static void key(unsigned char key, int x, int y)
     case 27:
         exit(0);
         break;
-    case ',':
+    case '.':
         rotation += 5;
         break;
-    case '.':
+    case ',':
         rotation -= 5;
         break;
 
@@ -1599,16 +1599,16 @@ static void key(unsigned char key, int x, int y)
         break;
 
         /// zoom in, zoom out & left-right
-    case 'g':
+    /*case 'g':*/
         //if(lookX <22) lookX++;
         //else lookX;
-        lookX++;
-        break;
-    case 'h':
+        /*lookX++;*/
+        /*break;*/
+    /*case 'h':*/
         //if(lookX > -22) lookX--;
         //else lookX;
-        lookX--;
-        break;
+        /*lookX--;*/
+        /*break;*/
 
     case 'j':
         eyeX++;
@@ -1701,7 +1701,7 @@ int main(int argc, char* argv[]) {
     printf("\tZoom In -> +\n");
     printf("\tZoom Out -> -\n");
     printf("\tLook Left -> g\n");
-    printf("\ttLook Right -> h\n");
+    printf("\tLook Right -> h\n");
     printf("\tMove Camera Left -> j\n");
     printf("\tMove Camera Right -> k\n");
     printf("\tUp -> u\n");
@@ -1715,7 +1715,6 @@ int main(int argc, char* argv[]) {
     printf("\tDiffuse Light On/Off -> d\n");
     printf("\tSpecular Light On/Off -> s\n\n");
 
-    printf("\tTraffic System control -> t\n");
     printf("\tCloud movement control -> c\n");
     printf("\tPlane movement control -> p\n");
 
