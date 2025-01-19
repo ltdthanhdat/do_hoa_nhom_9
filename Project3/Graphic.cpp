@@ -239,6 +239,9 @@ void texture_image()
     LoadTexture("Image\\viahe.bmp");
     v.push_back(ID);
 
+
+    LoadTexture("Image\\yellow-floor.bmp");
+    v.push_back(ID);
     /// clock
 
 }
@@ -471,50 +474,65 @@ void road()
 /// Building & Clock
 void building()
 {
-    /// leftFront FrontXCube
+    /// LeftFront FrontXCube
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[5]);
+    glPushMatrix();
+    glTranslatef(15.0, 20, -17.0);
+    glScalef(0.1, 10, 10);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[3]);
     glPushMatrix();
-    glTranslatef(15.0, 0, -17.0);
-    glScalef(0.1, 40, 10);
+    glTranslatef(15.0, 10, -17.0);
+    glScalef(0.1, 10, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
-    /// leftFront BackXCube()
+
+    /// LeftFront BackXCube
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glBindTexture(GL_TEXTURE_2D, v[8]);
     glPushMatrix();
     glTranslatef(25.0, 0, -17.0);
-    glScalef(0.1, 40, 10);
+    glScalef(0.1, 30, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
-    /// leftFront FrontZCube()
+
+    /// LeftFront FrontZCube (Back Wall)
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[5]);
+    glBindTexture(GL_TEXTURE_2D, v[8]);
     glPushMatrix();
-    glTranslatef(20, 0, -22.0);
-    glScalef(10, 40, 0.1);
+    glTranslatef(20.0, 0, -22.0);
+    glScalef(10, 30, 0.5);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
+
+    /// LeftFront FrontZCube (Front Wall)
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[5]);
+    glBindTexture(GL_TEXTURE_2D, v[8]);
     glPushMatrix();
-    glTranslatef(20, 0, -12.0);
-    glScalef(10, 40, 0.1);
+    glTranslatef(20.0, 0, -12.0);
+    glScalef(10, 30, 0.5);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
-    /// leftFront RoofCube()
+
+    /// LeftFront RoofCube
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[6]);
     glPushMatrix();
-    glTranslatef(20, 40, -17.0);
+    glTranslatef(20.0, 30, -17.0);
     glScalef(10, 0.1, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
@@ -523,7 +541,7 @@ void building()
 
 }
 void buildings()
-{//
+{
     glPushMatrix();
     glTranslatef(-18, 0, -7);
     building();
@@ -536,6 +554,7 @@ void buildings()
 
     glPushMatrix();
     glTranslatef(6, 0, -7);
+    
     building();
     glPopMatrix();
 
@@ -590,6 +609,7 @@ void buildings()
 
     glPushMatrix();
     glTranslatef(-43, 0, 22);
+    glRotated(-90, 0, 1, 0);
     building();
     glPopMatrix();
 
