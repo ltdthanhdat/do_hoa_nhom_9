@@ -247,6 +247,12 @@ void texture_image()
     LoadTexture("Image\\clock.bmp");
     v.push_back(ID);
 
+    LoadTexture("Image\\yellow-floor.bmp");
+    v.push_back(ID);
+
+
+    LoadTexture("Image\\front-yellow.bmp");
+    v.push_back(ID);
 
     
 }
@@ -555,7 +561,7 @@ void building()
 
     /// LeftFront BackXCube
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glBindTexture(GL_TEXTURE_2D, v[9]);
     glPushMatrix();
     glTranslatef(25.0, 0, -17.0);
     glScalef(0.1, 30, 10);
@@ -566,7 +572,7 @@ void building()
 
     /// LeftFront FrontZCube (Back Wall)
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glBindTexture(GL_TEXTURE_2D, v[9]);
     glPushMatrix();
     glTranslatef(20.0, 0, -22.0);
     glScalef(10, 30, 0.5);
@@ -577,7 +583,7 @@ void building()
 
     /// LeftFront FrontZCube (Front Wall)
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glBindTexture(GL_TEXTURE_2D, v[9]);
     glPushMatrix();
     glTranslatef(20.0, 0, -12.0);
     glScalef(10, 30, 0.5);
