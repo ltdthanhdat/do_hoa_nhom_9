@@ -10,6 +10,7 @@
 #include <windows.h>
 #include<iostream>
 #include<fstream>
+#include <cmath>
 
 //#include <bits/stdc++.h>
 using namespace std;
@@ -967,6 +968,242 @@ void jatriChaonePositioned()
     glPopMatrix();
 }
 
+void lamPost()
+{
+    GLfloat m_amb[] = { 0.275, 0.510, 0.706, 1.0 };
+    GLfloat m_diff[] = { 0.275, 0.510, 0.706, 1.0 };
+    GLfloat m_spec[] = { 0.275, 0.510, 0.706, 1.0 };
+    GLfloat m_sh[] = { 30 };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    /// thân đèn
+    glPushMatrix();
+    glTranslated(9, 0, -22);
+    glRotated(90, -1, 0, 0);
+    glBegin(GL_POLYGON);
+    GLUquadricObj* obj = gluNewQuadric();
+    gluCylinder(obj, 0.3, 0.3, 15.0, 300.0, 300.0);
+    glEnd();
+    glPopMatrix();
+
+    /// giá đỡ đèn
+    glPushMatrix();
+    glTranslatef(7.0, 15.0, -22);
+    glScalef(4.0, 0.2, 0.5);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(0.275, 0.510, 0.706, 1.0);
+    glPopMatrix();
+
+    /// đèn
+    glPushMatrix();
+    glTranslatef(5.5, 14.0, -22);
+    glScalef(0.2, 1.0, 0.2);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+}
+
+void lamPost1()
+{
+    //cột mới
+    glPushMatrix();
+    glTranslated(5.2, 0, 4);
+    glRotated(40, 0, 1, 0);
+    lamPost();
+    glPopMatrix();
+}
+void lamPost2() {
+    glPushMatrix();
+    glTranslated(5.2, 0, 30);
+    glRotated(41, 0, 1, 0);
+    lamPost();
+    glPopMatrix();
+}
+void lamPost3() {
+    glPushMatrix();
+    glTranslated(30, 0, -9);
+    glRotated(90, 0, 1, 0);
+    lamPost();
+    glPopMatrix();
+}
+void lamPost4() {
+    glPushMatrix();
+    glTranslated(-7, 0, 6);
+    glRotated(180, 0, 1, 0);
+    lamPost();
+    glPopMatrix();
+}
+
+
+//cột điện
+void Drawelectricpole()
+{
+    GLfloat m_amb[] = { 0.5, 0.5, 0.5, 1.0 };
+    GLfloat m_diff[] = { 0.5, 0.5, 0.5, 1.0 };
+    GLfloat m_spec[] = { 0.3, 0.3, 0.3, 1.0 };
+    GLfloat m_sh[] = { 20 };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    /// thân cột
+    glPushMatrix();
+    glTranslated(9, 0, -22);
+    glRotated(90, -1, 0, 0);
+    glBegin(GL_POLYGON);
+    GLUquadricObj* obj = gluNewQuadric();
+    gluCylinder(obj, 0.4, 0.4, 19.0, 300.0, 300.0);
+    glEnd();
+    glPopMatrix();
+
+    /// tụ đỡ dây điện
+    glPushMatrix();
+    glTranslatef(9.0, 19.0, -22.0);
+    glScalef(4.0, 0.2, 0.2);//độ dài thanh đỡ dây điện
+    glTranslatef(-0.5, 0, -0.5);
+    cube(0.0, 0.0, 0.0, 1.0);
+    glPopMatrix();
+}
+
+// vẽ nhiều cột
+void pole1()
+{
+    glPushMatrix();
+    glTranslated(5.8, 0, 5);
+    glRotated(40, 0, 1, 0);
+    Drawelectricpole();
+    glPopMatrix();
+}
+void pole2()
+{
+    glPushMatrix();
+    glTranslated(5.2, 0, 22);
+    glRotated(41, 0, 1, 0);
+    Drawelectricpole();
+    glPopMatrix();
+}
+void pole3()
+{
+    glPushMatrix();
+    glTranslated(-7, 0, -14);
+    glRotated(180, 0, 1, 0);
+    Drawelectricpole();
+    glPopMatrix();
+}
+
+
+// tính vector chỉ phương để vẽ dây điện
+void chi_phuong(float x1, float y1, float z1, float x2, float y2, float z2, float& angle, float& axisX, float& axisY, float& axisZ)
+{
+    // Tính vector chỉ hướng của hình trụ
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+    float dz = z2 - z1;
+
+    // Tính độ dài vector
+    float length = sqrt(dx * dx + dy * dy + dz * dz);
+
+    // Tính toán góc quay (giữa vector (0, 0, 1) và vector chỉ hướng của hình trụ)
+    angle = acos(dz / length) * 180.0 / 3.1416;
+
+    // Tính toán trục quay (tạo ra vector vuông góc với (0, 0, 1) và vector chỉ hướng)
+    axisX = -dy;
+    axisY = dx;
+    axisZ = 0.0f;
+}
+//vẽ hình trụ
+void DrawCylinderBetweenPoints(float x1, float y1, float z1, float x2, float y2, float z2)
+{
+    GLfloat m_amb[] = { 0.0, 0.0, 0.0, 1.0 }; // Màu môi trường (màu đen)
+    GLfloat m_diff[] = { 0.0, 0.0, 0.0, 1.0 }; // Màu khuếch tán (màu đen)
+    GLfloat m_spec[] = { 0.0, 0.0, 0.0, 1.0 }; // Màu phản chiếu (màu đen)
+    GLfloat m_sh[] = { 20 }; // Độ bóng
+
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    // Tính toán góc quay và trục quay
+    float angle, axisX, axisY, axisZ;
+    chi_phuong(x1, y1, z1, x2, y2, z2, angle, axisX, axisY, axisZ);
+
+    // Dịch chuyển đến điểm đầu và quay theo trục đã tính toán
+    glPushMatrix();
+    glTranslated(x1, y1, z1);  // Dịch chuyển hình trụ đến điểm đầu
+    glRotated(angle, axisX, axisY, axisZ);  // Quay hình trụ theo trục và góc tính toán
+
+    // Tạo đối tượng quadric và vẽ hình trụ
+    GLUquadricObj* obj = gluNewQuadric();
+    gluCylinder(obj, 0.2, 0.2, sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1)), 300, 300); // Tính chiều dài hình trụ
+
+    glPopMatrix();
+}
+
+
+
+//vẽ cây
+/// Trees
+void tree()
+{
+    GLfloat m_amb[] = { 0.000, 0.392, 0.000,1 };
+    GLfloat m_diff[] = { 0.000, 0.392, 0.000,1 };
+    GLfloat m_spec[] = { 0.000, 0.392, 0.000,1 };
+    GLfloat m_sh[] = { 30 };
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, m_amb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, m_diff);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, m_spec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, m_sh);
+
+    /// root
+    glPushMatrix();
+    glTranslated(11, 0, -17);
+    glRotated(90, -1, 0, 0);
+    glBegin(GL_POLYGON);
+    GLUquadricObj* roo_obj = gluNewQuadric();
+    gluCylinder(roo_obj, 0.3, 0.3, 8.0, 300.0, 300.0);
+    glEnd();
+    glPopMatrix();
+    /// branch
+    glPushMatrix();
+    glTranslated(11, 8.0, -17);
+    glRotated(90, -1, 0, 0);
+    glutSolidCone(2.5, 4.0, 300, 300);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(11, 10.5, -17);
+    glRotated(90, -1, 0, 0);
+    glutSolidCone(2.5, 4.0, 300, 300);
+    glPopMatrix();
+}
+void tree1()
+{
+    //Cay 2
+    glPushMatrix();
+    glTranslated(5, 0, 16.0);
+    tree();
+    glPopMatrix();
+}
+void tree2() {
+    glPushMatrix();
+    glTranslated(-26.0, 0, 20);
+    tree();
+    glPopMatrix();
+}
+void tree3() {
+    glPushMatrix();
+    glTranslated(25.0, 0, 16);
+    tree();
+    glPopMatrix();
+}
 
 
 
@@ -1269,8 +1506,19 @@ void objects()
     sun();
     plane();
     glPopMatrix();
-
-
+    lamPost1();
+    lamPost2();
+    lamPost3();
+    lamPost4();
+    pole1();
+    pole2();
+    pole3();
+    //DrawCylinderBetweenPoints(5.8, 29.0, 5.0, 5.2, 29.0, 22.0); // Vẽ hình trụ từ 
+    DrawCylinderBetweenPoints(-1, 19, -1, -1, 19.5, -18.0);
+    DrawCylinderBetweenPoints(-15, 19, 8, -1, 19.5, -18.0);
+    tree1();
+    tree2();
+    tree3();
     //trafficSystemPositioned();
 
     ///cout<<"X : "<<lookX<<" "<<"Y : "<<lookY<<" "<<"Z : "<<lookZ<<endl;
