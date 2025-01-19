@@ -246,6 +246,9 @@ void texture_image()
     /// clock
     LoadTexture("Image\\clock.bmp");
     v.push_back(ID);
+
+
+    
 }
 
 /// Lighting
@@ -529,55 +532,72 @@ void road()
 /// Building & Clock
 void building()
 {
-    /// leftFront FrontXCube
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[3]);  // Gắn texture từ danh sách `v`.
-    glPushMatrix();
-    glTranslatef(15.0, 0, -17.0);   // Di chuyển vị trí của bức tường.
-    glScalef(0.1, 20, 10);    // Thay đổi kích thước: rộng 0.1, cao 20, sâu 10.
-    glTranslatef(-0.5, 0, -0.5);   // Căn chỉnh trung tâm của hình khối.
-    cube(1.0, 1.0, 1.0, 1.0);     // Vẽ khối lập phương với màu trắng.
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// leftFront BackXCube()
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[4]);
-    glPushMatrix();
-    glTranslatef(20.0, 0, -17.0);
-    glScalef(0.1, 20, 10);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    /// leftFront FrontZCube()
+    /// LeftFront FrontXCube
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[5]);
     glPushMatrix();
-    glTranslatef(17.5, 0, -22.0);
-    glScalef(5, 20, 0.1);
+    glTranslatef(15.0, 20, -17.0);
+    glScalef(0.1, 10, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[3]);
+    glPushMatrix();
+    glTranslatef(15.0, 10, -17.0);
+    glScalef(0.1, 10, 10);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    /// LeftFront BackXCube
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glPushMatrix();
+    glTranslatef(25.0, 0, -17.0);
+    glScalef(0.1, 30, 10);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    /// LeftFront FrontZCube (Back Wall)
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glPushMatrix();
+    glTranslatef(20.0, 0, -22.0);
+    glScalef(10, 30, 0.5);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    /// LeftFront FrontZCube (Front Wall)
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, v[4]);
+    glPushMatrix();
+    glTranslatef(20.0, 0, -12.0);
+    glScalef(10, 30, 0.5);
+    glTranslatef(-0.5, 0, -0.5);
+    cube(1.0, 1.0, 1.0, 1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    /// LeftFront RoofCube
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[6]);
     glPushMatrix();
-    glTranslatef(17.5, 0, -12.0);
-    glScalef(5, 20, 0.1);
+    glTranslatef(20.0, 30, -17.0);
+    glScalef(10, 0.1, 10);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
-    /// leftFront RoofCube()
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, v[6]);
-    glPushMatrix();
-    glTranslatef(17.5, 20, -17.0);
-    glScalef(5, 0.1, 10);
-    glTranslatef(-0.5, 0, -0.5);
-    cube(1.0, 1.0, 1.0, 1.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
+
+
 
 }
 
