@@ -22,9 +22,9 @@ GLfloat floor_height = 80;
 
 float rotation = -32;
 
-GLfloat leftLightHight = 40;
-GLfloat rightLightHight = 40;
-GLfloat spotLightHight = 40;
+GLfloat leftLightHight = 80;
+GLfloat rightLightHight = 80;
+GLfloat spotLightHight = 80;
 
 bool light1_on = true;
 bool light2_on = true;
@@ -34,13 +34,12 @@ bool spotLight_on = true;
 bool amb_on = true;
 bool dif_on = true;
 bool spe_on = true;
-float spt_cutoff = 30;
+float spt_cutoff = 0;
 
 bool redSignal = false;
-GLfloat carStep = 0.5;
-GLfloat car1Initial = 0;
-GLfloat car2Initial = 0;
-GLfloat car3Initial = 0;
+GLfloat carStep = 1;
+GLfloat car1Initial = -20;
+
 
 bool planeMovement = true;
 GLfloat planePosition = 75;
@@ -50,13 +49,13 @@ bool cloudMovement = true;
 GLfloat cloudPosition = 110;
 GLfloat cloudStepSize = 0.5;
 
-GLfloat eyeX = -13;
+GLfloat eyeX = -12;
 GLfloat eyeY = 10;
-GLfloat eyeZ = -13;
+GLfloat eyeZ = -12;
 
-GLfloat lookX = 0;
-GLfloat lookY = 5;
-GLfloat lookZ = 30;
+GLfloat lookX = 50;
+GLfloat lookY = 0;
+GLfloat lookZ = 180;
 
 vector<int> v;
 unsigned int ID;
@@ -281,7 +280,7 @@ void leftLight()
 
 void leftLightIndicator() {
     glPushMatrix();                             //Push the current matrix stack
-    glTranslatef(10, leftLightHight + 1, 0);    //Multiplies the current matrix by a translation matrix
+    glTranslatef(80, leftLightHight + 1, 0);    //Multiplies the current matrix by a translation matrix
     glScalef(1, 1, 1);                          //Multiplies the current matrix by a general scaling matrix
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
@@ -327,7 +326,7 @@ void rightLight()
 void rightLightIndicator()
 {
     glPushMatrix();
-    glTranslatef(-10, rightLightHight + 1, 0);
+    glTranslatef(-80, rightLightHight + 1, 0);
     glScalef(1, 1, 1);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.000, 1.0, 1.0, 1.0);
@@ -546,22 +545,22 @@ void buildings()
 //
 
     glPushMatrix();
-    glTranslatef(-16, 0, 22);
+    glTranslatef(-15, 0, 22);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-4, 0, 22);
+    glTranslatef(-3, 0, 22);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(8, 0, 22);
+    glTranslatef(9, 0, 22);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(20, 0, 22);
+    glTranslatef(21, 0, 22);
     building();
     glPopMatrix();
 
@@ -569,17 +568,17 @@ void buildings()
 
 
     glPushMatrix();
-    glTranslatef(-16, 0, 34);
+    glTranslatef(-15, 0, 34);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-16, 0, 46);
+    glTranslatef(-15, 0, 46);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-16, 0, 58);
+    glTranslatef(-15, 0, 58);
     building();
     glPopMatrix();
 
@@ -589,22 +588,22 @@ void buildings()
     glPushMatrix();
 
     glPushMatrix();
-    glTranslatef(-43, 0, 22);
+    glTranslatef(-45, 0, 22);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-43, 0, 34);
+    glTranslatef(-45, 0, 34);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-43, 0, 46);
+    glTranslatef(-45, 0, 46);
     building();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-43, 0, 58);
+    glTranslatef(-45, 0, 58);
     building();
     glPopMatrix();
 
@@ -803,8 +802,8 @@ void Billboard()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, v[1]);
     glPushMatrix();
-    glTranslatef(0, 10, -2);
-    glScalef(12, 4, 0.2);
+    glTranslatef(5, 10, 0);
+    glScalef(10, 4, 0.2);
     glTranslatef(-0.5, 0, -0.5);
     cube(1.0, 1.0, 1.0, 1.0);
     glPopMatrix();
@@ -891,6 +890,113 @@ void Table()
         }
     }
 
+
+    glPopMatrix();
+}
+
+void Table_Stool()
+{
+    glPushMatrix();
+    glTranslatef(0, 0, 3.5);
+    Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(2, 0, 3.5);
+    Stool();
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(0, 0, 0);
+    Table();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0, 0, 0);
+    Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(2, 0, 0);
+    Stool();
+    glPopMatrix();
+}
+
+void Tables() 
+{
+    //
+    glPushMatrix();
+    glTranslatef(0, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(3.5, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(7.5, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(11, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    //
+    glPushMatrix();
+    glTranslatef(-6.5, 0, 0);
+    glRotated(-90,0,1,0);
+    
+    glPushMatrix();
+    glTranslatef(0, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(3.5, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(7.5, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(11, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPopMatrix();
+
+    //
+    glPushMatrix();
+    glTranslatef(-20, 0, 0);
+    glRotated(-90, 0, 1, 0);
+
+    glPushMatrix();
+    glTranslatef(0, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(3.5, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(7.5, 0, -4);
+    Table_Stool();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(11, 0, -4);
+    Table_Stool();
+    glPopMatrix();
 
     glPopMatrix();
 }
@@ -1212,15 +1318,13 @@ void carBodyRaw() {
 void car() {
     /// car 1
     glPushMatrix();
+    glTranslatef(-8, 0, car1Initial); // Di chuyển theo trục z
     if (!redSignal) {
-        glTranslatef(-8.0, 0, car1Initial += carStep);
-    }
-    else {
-        glTranslatef(-8.0, 0, car1Initial);
+        car1Initial += carStep; // Tăng giá trị car1Initial khi không có tín hiệu đỏ
     }
 
-    if (car1Initial > 40.0) {
-        car1Initial = 0.0;
+    if (car1Initial > 60.0) {
+        car1Initial = -20.0; // Đặt lại khi vượt quá 80 đơn vị
     }
 
     wheelPositioned();
@@ -1231,7 +1335,10 @@ void car() {
     
     glPushMatrix();
     glRotated(-90, 0, 1, 0);
-    glTranslatef(-9.0, 0, 5);
+
+    
+    glTranslatef(-9.0, 0, 0);
+    
     wheelPositioned();
     carBodyRaw();
     glPopMatrix();
@@ -1248,8 +1355,7 @@ void objects()
     road();
     car();
     Billboard();
-    Stool();
-    Table();
+    Tables();
     //jatriChaonePositioned();
 
     leftLight();
@@ -1281,8 +1387,8 @@ static void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(-5, 5, -5, 5, 3, 100.0);
-    gluPerspective(0, 0, 0, 0);
+    glFrustum(-6, 6, -6, 6, 3, 1000.0);
+
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -1353,16 +1459,10 @@ static void key(unsigned char key, int x, int y)
         break;
 
     case '=':
-        if (lookZ < 123) {
+      
             lookZ++;
             eyeZ++;
-        }
-        else {
-            lookZ;
-            eyeZ;
-        }
-        //eyeZ++;
-        //lookZ++;
+               
         break;
     case '-':
 
