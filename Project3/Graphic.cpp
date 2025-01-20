@@ -1599,16 +1599,16 @@ static void key(unsigned char key, int x, int y)
         break;
 
         /// zoom in, zoom out & left-right
-    /*case 'g':*/
+    case 'g':
         //if(lookX <22) lookX++;
         //else lookX;
-        /*lookX++;*/
-        /*break;*/
-    /*case 'h':*/
+        lookX++;
+        break;
+    case 'h':
         //if(lookX > -22) lookX--;
         //else lookX;
-        /*lookX--;*/
-        /*break;*/
+        lookX--;
+        break;
 
     case 'j':
         eyeX++;
