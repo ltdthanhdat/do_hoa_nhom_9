@@ -1709,7 +1709,7 @@ int main(int argc, char* argv[]) {
 
     printf("\tPoint Light #1 On/Off -> 1\n");
     printf("\tPoint Light #2 On/Off -> 2\n");
-    printf("\tSpot Light On/Off -> 3\n\n");
+    /*printf("\tSpot Light On/Off -> 3\n\n");*/
 
     printf("\tAmbient Light On/Off -> a\n");
     printf("\tDiffuse Light On/Off -> d\n");
